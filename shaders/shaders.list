@@ -1,2 +1,7 @@
 relativeTo: /shaders/
-simple: vertex=simple.vert, fragment=simple.frag
+scrollingBarsDiag:   vertex=scrollingBarsDiag/vertex.shader, fragment=scrollingBarsDiag/fragment.shader
+#scrollingCircle:     vertex=gradient1/vertex.shader, fragment=gradient1/fragment.shader
+#scrollingHorizontal: vertex=gradient1/vertex.shader, fragment=gradient1/fragment.shader
+#circleGradient:      vertex=gradient1/vertex.shader, fragment=gradient1/fragment.shader
+gradient1:           vertex=gradient1/vertex.shader, fragment=gradient1/fragment.shader
+#gradient2:           vertex=gradient1/vertex.shader, fragment=gradient1/fragment.shader

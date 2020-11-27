@@ -38,7 +38,6 @@ function parseKeyCombo(string) {
         };
         // string is either a modifier or a key with settings
         for (const string of sequence) {
-            console.log('oaeu')
             if (string[0] === '-' || string[0] === '#') {
                 const [keyOrCode, settings] = string.slice(1).split(':');
                 switch (string[0]) {
@@ -51,7 +50,8 @@ function parseKeyCombo(string) {
                     if (settingsArray.includes('repeat'    )) phase.repeat    = isTrue;
                     if (settingsArray.includes('onrepeat'  )) phase.repeat    = alwaysTrue; // TODO implment logic: only runs once when repeating starts
                     if (settingsArray.includes('canrepeat' )) phase.repeat    = alwaysTrue;
-                    if (settingsArray.includes('trusted'   )) phase.isTrusted = true;
+                    if (settingsArray.includes('trusted'   )) phase.isTrusted = isTrue;
+                    // if (settingsArray.includes('untilreleased')) phaser.shouldSkip = untilreleased();
                 }
             }
             if (alt  .includes(string)) phase.altKey   = isTrue;
@@ -67,8 +67,17 @@ function parseKeyCombo(string) {
 
 function isFalse(test) { return test === false; }
 function isTrue(test)  { return test === true; }
-function is(value)      { return (test) => test === value }
+function is(value)     { return (test) => test === value }
 function alwaysTrue()  { return true; }
+function untilreleased() {
+    let isHeld = false;
+    return e => {
+        if (isHeld && !e.type === 'keyup') return true;
+        if (e.type === 'keyup'  ) isHeld = false;
+        if (e.type === 'keydown') isHeld = true;
+        return false;
+    };
+}
 
 function matches(event, phase) {
     for (const prop in phase) {
@@ -81,7 +90,11 @@ function matches(event, phase) {
 function keyEventHandler(event, bindings) {
     for (const [binding, fn] of bindings.entries()) {
         if (matches(event, binding.phases[binding.phase])) {
-            console.log(called);
+            // if (binding.shouldSkip?.(event)) continue;
+
+            // skip phase counting if there is only one phase
+            if (binding.phases.length === 1) fn(event);
+
             binding.phase++;
         }
         if (binding.phase >= binding.phases.length) {
@@ -116,7 +129,9 @@ export function KeyBinder(element) {
     }
 
     this.bind = (keyCombo, fn, when = 'down') => {
-        this._bind(parseKeyCombo(keyCombo));
+        console.time();
+        this._bind(parseKeyCombo(keyCombo), fn, when);
+        console.timeEnd();
     };
 
     this.unbind = () => {};

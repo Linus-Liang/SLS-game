@@ -3,7 +3,7 @@ function parseList(text) {
         text.split('\n') // make an array of strings representing every line
             .map(line => {
                 // ignore this line, if comment character is at the beginning
-                if (line.search('#') === 0) return;
+                if (line.search('#') === 0) return [];
 
                 if (line.search('relativeTo') === 0) return line.split(':').map(str => str.trim());
 
@@ -34,11 +34,10 @@ async function loadShaders(shadersList) {
     return downloadList;
 }
 
-async function loadAssets() {
-
+async function loadWASM(wasmList) {
+    const downloadList = parseList(await (await fetch(wasmList)).text());
 }
 
 export async function load(shadersList) {
-    loadAssets()
     return loadShaders(shadersList);
 }
