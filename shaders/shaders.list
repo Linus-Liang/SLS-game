@@ -1,0 +1,2 @@
+relativeTo: /shaders/
+simple: vertex=simple.vert, fragment=simple.frag
