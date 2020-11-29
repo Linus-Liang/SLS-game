@@ -1,7 +1,7 @@
 relativeTo: /shaders/
 scrollingBarsDiag:   vertex=scrollingBarsDiag/vertex.shader, fragment=scrollingBarsDiag/fragment.shader
-#scrollingCircle:     vertex=gradient1/vertex.shader, fragment=gradient1/fragment.shader
+scrollingCircle:     vertex=scrollingCircle/vertex.shader, fragment=scrollingCircle/fragment.shader
 #scrollingHorizontal: vertex=gradient1/vertex.shader, fragment=gradient1/fragment.shader
-#circleGradient:      vertex=gradient1/vertex.shader, fragment=gradient1/fragment.shader
+circleGradient:      vertex=circleGradient/vertex.shader, fragment=circleGradient/fragment.shader
 gradient1:           vertex=gradient1/vertex.shader, fragment=gradient1/fragment.shader
 #gradient2:           vertex=gradient1/vertex.shader, fragment=gradient1/fragment.shader

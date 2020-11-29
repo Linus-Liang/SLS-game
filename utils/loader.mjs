@@ -1,3 +1,4 @@
+// TODO actually write a good parser
 function parseList(text) {
     const list = Object.fromEntries(
         text.split('\n') // make an array of strings representing every line
@@ -27,8 +28,11 @@ async function loadShaders(shadersList) {
         if (typeof bundle != 'object') continue;
 
         for (const [resourceName, resourcePath] of Object.entries(bundle)) {
-            const resource = await (await fetch(downloadList.relativeTo + resourcePath)).text();
-            bundle[resourceName] = resource;
+            // const resource = await (await fetch(downloadList.relativeTo + resourcePath)).text();
+            // bundle[resourceName] = resource;
+            Object.defineProperty(bundle, resourceName, {
+                value: fetch(downloadList.relativeTo + resourcePath).then(res => res.text())
+            });
         }
     }
     return downloadList;
@@ -36,6 +40,12 @@ async function loadShaders(shadersList) {
 
 async function loadWASM(wasmList) {
     const downloadList = parseList(await (await fetch(wasmList)).text());
+    for (const bundle of Object.values(downloadList)) {
+        for (const [resourceName, resourcePath] of Object.entries(bundle)) {
+            bundle[resourceName] = await WebAssembly.compileStreaming(fetch(dowloadList.relativeTo + resourcePath));
+        }
+    }
+    return downloadList;
 }
 
 export async function load(shadersList) {

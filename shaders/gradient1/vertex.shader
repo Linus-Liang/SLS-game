@@ -1,9 +1,14 @@
 #version 300 es
 
-in vec3 position;
-out vec3 pos;
+uniform mat4 model;
+uniform mat4 rotate;
+uniform mat4 scale;
+uniform mat4 view;
+uniform mat4 persective;
+in vec4 position;
+out vec4 pos;
 
 void main() {
-    gl_Position = vec4(position, 1.0);
-    pos = position;
+    pos = model * scale * rotate * position;
+    gl_Position = pos;
 }

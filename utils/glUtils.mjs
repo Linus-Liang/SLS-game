@@ -35,3 +35,11 @@ export function compileProgram(vertexSource, fragmentSource) {
 export function setUniform(name, ) {
 
 }
+
+export function getAttribLocations(program, attribs) {
+    return Object.fromEntries(attribs.map(attrib => [attrib, gl.getAttribLocation(program, attrib)]));
+}
+
+export function getUniformLocations(program, attribs) {
+    return Object.fromEntries(attribs.map(attrib => [attrib, gl.getUniformLocation(program, attrib)]));
+}

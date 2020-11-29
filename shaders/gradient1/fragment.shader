@@ -1,6 +1,6 @@
 #version 300 es
 
-in highp vec3 pos;
+in highp vec4 pos;
 out highp vec4 color;
 
 void main() {

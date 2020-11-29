@@ -19,7 +19,7 @@ const alt   = ['alt', 'alternative', 'option', 'opt', '⌥'];
 const ctrl  = ['ctrl', 'control'];
 const meta  = ['meta', 'windows', 'win', '⊞', '⌘', 'command', 'cmd'];
 const shift = ['shift'];
-
+// TODO actually write a good parser
 function parseKeyCombo(string) {
     if (typeof string !== 'string') throw 'argument is not of type \'string\'';
     const phaser = { strKeyCombo: string, phase: 0, phases: [] };
